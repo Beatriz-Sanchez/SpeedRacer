@@ -1,23 +1,23 @@
 var canvas;
-var backgroundImage;
+var fundo;
 var database;
-var form, player;
-var playerCount;
+var form, jogador, jogo;
+var numJogadores;
 
 function preload() {
-  backgroundImage = loadImage("./assets/planodefundo.png");
+  fundo = loadImage("./assets/planodefundo.png");
 }
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   database = firebase.database();
-  game = new Game();
-  game.start();
+  jogo = new Jogo();
+  jogo.iniciar();
 
 }
 
 function draw() {
-  background(backgroundImage);
+  background(fundo);
 }
 
 function windowResized() {

@@ -1,9 +1,9 @@
-class Game {
+class Jogo {
   constructor() {}
 
-  start() {
+  iniciar() {
     form = new Form();
-    form.display();
-    player = new Player();
+    form.mostrar();
+    jogador = new Jogador();
   }
 }
