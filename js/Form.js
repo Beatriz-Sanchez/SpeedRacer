@@ -12,4 +12,23 @@ class Form {
     this.entrada.hide();
   }
 
+  posicionarElementos() {
+    this.tituloImg.position(150,50);
+    this.entrada.position(width / 2 - 110, height / 2 - 80);
+    this.botao.position(width / 2 - 90, height / 2 - 20);
+    this.mensagem.position(width / 2 - 300, height / 2 - 100);
+  }
+
+  estilizarElementos() {
+    this.tituloImg.class("titulo");
+    this.entrada.class("entrada");
+    this.botao.class("botao");
+    this.mensagem.class("mensagem");
+  }
+
+  mostrar() {
+    this.posicionarElementos();
+    this.estilizarElementos();
+  }
+
 }

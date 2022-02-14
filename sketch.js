@@ -10,7 +10,7 @@ function preload() {
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
-  database = firebase.database();
+  //database = firebase.database();
   jogo = new Jogo();
   jogo.iniciar();
 
