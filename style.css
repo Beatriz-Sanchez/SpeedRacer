@@ -18,6 +18,11 @@ canvas {
   height: 80px;
 }
 
+.tituloAposEfeito{
+  width: 25%;
+  height: 80px;
+}
+
 .mensagem{
   font-size: 40px;
   color: white;
