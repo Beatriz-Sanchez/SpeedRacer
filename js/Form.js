@@ -26,9 +26,21 @@ class Form {
     this.mensagem.class("mensagem");
   }
 
+  controlarBotao() {
+    this.botao.mousePressed(() => {
+      this.entrada.hide();
+      this.botao.hide();
+      var ola = `
+      Olá, ${this.entrada.value()}
+      </br>espere o outro jogador entrar...`;
+      this.mensagem.html(ola);
+    });
+  }
+
   mostrar() {
     this.posicionarElementos();
     this.estilizarElementos();
+    this.controlarBotao();
   }
 
 }
