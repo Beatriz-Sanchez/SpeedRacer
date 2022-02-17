@@ -6,6 +6,22 @@ class Jogador {
     this.posY = 0;
   }
 
+  adicionarJogador() {
+    var indiceJogador = "jogadores/jogador" + this.indice;
+
+    if (this.indice === 1) {
+      this.posX = width / 2 - 100;
+    } else {
+      this.posX = width / 2 + 100;
+    }
+
+    database.ref(indiceJogador).set({
+      nome: this.nome,
+      posX: this.posX,
+      posY: this.posY
+    });
+  }
+
   lerNum() {
     var NumJogadoresRef = database.ref("numJogadores");
     NumJogadoresRef.on("value", dados => {

@@ -10,17 +10,29 @@
     <script src="./lib/p5.play.js"></script>
 
     <link rel="stylesheet" href="style.css" />
-    
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyAVo7oQjvuFfb9DMgjSBWBAsiFDfGLMtmQ",
+        authDomain: "speedracer-port.firebaseapp.com",
+        databaseURL: "https://speedracer-port-default-rtdb.firebaseio.com",
+        projectId: "speedracer-port",
+        storageBucket: "speedracer-port.appspot.com",
+        messagingSenderId: "332825584892",
+        appId: "1:332825584892:web:0e72f734a4c0faf33f6379",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+  </head>
+  <body>
     <script src="./js/Game.js"></script>
     <script src="./js/Form.js"></script>
     <script src="./js/Player.js"></script>
-
-    <!-- ADICIONAR CÓDIGO Firebase SDK ABAIXO -->
-
-   
-  </head>
-  <body>
-    
     <script src="./sketch.js"></script>
   </body>
 </html>

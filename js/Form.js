@@ -34,6 +34,11 @@ class Form {
       Olá ${this.entrada.value()}
       </br>espere o outro jogador entrar...`;
       this.mensagem.html(ola);
+      numJogadores += 1;
+      jogador.nome = this.entrada.value();
+      jogador.indice = numJogadores;
+      jogador.adicionarJogador();
+      jogador.atualizarNum(numJogadores);
     });
   }
 
