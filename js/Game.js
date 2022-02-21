@@ -38,6 +38,13 @@ class Jogo {
     form.tituloImg.class("tituloAposEfeito");
   }
 
+  controleJogadores() {
+    if (keyIsDown(UP_ARROW)) {
+      jogador.posY += 10;
+      jogador.atualizar();
+    }
+  }
+
   jogar() {
     this.mudarElementos();
 
@@ -47,6 +54,18 @@ class Jogo {
       image(pista, 0, -height * 5, width, height * 6);
 
       drawSprites();
+
+      var indice = 0
+      for (var jgdr in todosJogadores) {
+        indice = indice + 1;
+        var x = todosJogadores[jgdr].posX;
+        var y = height-50-todosJogadores[jgdr].posY;
+
+        carros[indice - 1].position.x = x;
+        carros[indice - 1].position.y = y;
+      }
+
+      this.controleJogadores();
     }
   }
 }

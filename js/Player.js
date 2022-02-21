@@ -41,4 +41,12 @@ class Jogador {
       todosJogadores = dados.val();
     });
   }
+
+  atualizar() {
+    var indiceJogador = "jogadores/jogador" + this.indice;
+    database.ref(indiceJogador).update({
+      posX: this.posX,
+      posY: this.posY,
+    });
+  }
 }
