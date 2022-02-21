@@ -1,52 +1,52 @@
-class Jogador {
+class Player {
   constructor() {
-    this.nome = null;
-    this.indice = null;
-    this.posX = 0;
-    this.posY = 0;
+    this.name = null;
+    this.index = null;
+    this.positionX = 0;
+    this.positionY = 0;
   }
 
-  adicionarJogador() {
-    var indiceJogador = "jogadores/jogador" + this.indice;
+  addPlayer() {
+    var playerIndex = "players/player" + this.index;
 
-    if (this.indice === 1) {
-      this.posX = width / 2 - 100;
+    if (this.index === 1) {
+      this.positionX = width / 2 - 100;
     } else {
-      this.posX = width / 2 + 100;
+      this.positionX = width / 2 + 100;
     }
 
-    database.ref(indiceJogador).set({
-      nome: this.nome,
-      posX: this.posX,
-      posY: this.posY
+    database.ref(playerIndex).set({
+      name: this.name,
+      positionX: this.positionX,
+      positionY: this.positionY
     });
   }
 
-  lerNum() {
-    var NumJogadoresRef = database.ref("numJogadores");
-    NumJogadoresRef.on("value", dados => {
-      numJogadores = dados.val();
+  getCount() {
+    var playerCountRef = database.ref("playerCount");
+    playerCountRef.on("value", data => {
+      playerCount = data.val();
     });
   }
 
-  atualizarNum(num) {
+  updateCount(count) {
     database.ref("/").update({
-      numJogadores: num
+      playerCount: count
     });
   }
 
-  static lerInfoJogadores() {
-    var infoJogadoresRef = database.ref("jogadores");
-    infoJogadoresRef.on("value", dados => {
-      todosJogadores = dados.val();
+  static getPlayersInfo() {
+    var playerInfoRef = database.ref("players");
+    playerInfoRef.on("value", data => {
+      allPlayers = data.val();
     });
   }
-
-  atualizar() {
-    var indiceJogador = "jogadores/jogador" + this.indice;
-    database.ref(indiceJogador).update({
-      posX: this.posX,
-      posY: this.posY,
+  //novo
+  update(){
+    var playerIndex = 'players/player' + this.index;
+    database.ref(playerIndex).update({
+        positionX: this.positionX,
+        positionY: this.positionY,
     });
-  }
+}
 }

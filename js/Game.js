@@ -1,71 +1,72 @@
-class Jogo {
+class Game {
   constructor() {}
 
-  lerEstado() {
-    var estadoJogoRef = database.ref("estadoJogo");
-    estadoJogoRef.on("value", function(dados) {
-      estadoJogo = dados.val();
+  getState() {
+    var gameStateRef = database.ref("gameState");
+    gameStateRef.on("value", function (data) {
+      gameState = data.val();
     });
   }
 
-  atualizar(estado) {
+  update(state) {
     database.ref("/").update({
-      estadoJogo: estado
+      gameState: state
     });
   }
 
-  inicio() {
-    jogador = new Jogador();
-    numJogadores = jogador.lerNum();
+  start() {
+    player = new Player();
+    playerCount = player.getCount();
 
     form = new Form();
-    form.mostrar();
+    form.display();
 
-    carro1 = createSprite(width / 2 - 50, height - 100);
-    carro1.addImage("car1", carro1_img);
-    carro1.scale = 0.07;
+    car1 = createSprite(width / 2 - 50, height - 100);
+    car1.addImage("car1", car1_img);
+    car1.scale = 0.07;
 
-    carro2 = createSprite(width / 2 + 100, height - 100);
-    carro2.addImage("car2", carro2_img);
-    carro2.scale = 0.07;
+    car2 = createSprite(width / 2 + 100, height - 100);
+    car2.addImage("car2", car2_img);
+    car2.scale = 0.07;
 
-    carros = [carro1, carro2];
+    cars = [car1, car2];
   }
 
-  mudarElementos() {
-    form.esconder();
-    form.tituloImg.position(40, 50);
-    form.tituloImg.class("tituloAposEfeito");
+  handleElements() {
+    form.hide();
+    form.titleImg.position(40, 50);
+    form.titleImg.class("gameTitleAfterEffect");
   }
-
-  controleJogadores() {
+  //novo
+  handlePlayerControls() {
     if (keyIsDown(UP_ARROW)) {
-      jogador.posY += 10;
-      jogador.atualizar();
+      player.positionY += 10;
+      player.update();
     }
   }
 
-  jogar() {
-    this.mudarElementos();
+  play() {
+    this.handleElements();
 
-    Jogador.lerInfoJogadores();
+    Player.getPlayersInfo();
 
-    if (todosJogadores !== undefined) {
-      image(pista, 0, -height * 5, width, height * 6);
+    if (allPlayers !== undefined) {
+      image(track, 0, -height * 5, width, height * 6);
 
       drawSprites();
 
-      var indice = 0
-      for (var jgdr in todosJogadores) {
-        indice = indice + 1;
-        var x = todosJogadores[jgdr].posX;
-        var y = height-50-todosJogadores[jgdr].posY;
+      //novo
+      var index = 0
+      for (var plr in allPlayers) {
+        index = index + 1;
+        var x = allPlayers[plr].positionX;
+        var y = height-allPlayers[plr].positionY;
 
-        carros[indice - 1].position.x = x;
-        carros[indice - 1].position.y = y;
+        cars[index - 1].position.x = x;
+        cars[index - 1].position.y = y;
       }
 
-      this.controleJogadores();
+      this.handlePlayerControls();
     }
   }
 }
