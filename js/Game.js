@@ -1,50 +1,50 @@
-class Game {
+class Jogo {
   constructor() {}
 
-  getState() {
-    var gameStateRef = database.ref("gameState");
-    gameStateRef.on("value", function(data) {
-      gameState = data.val();
+  lerEstado() {
+    var estadoJogoRef = database.ref("estadoJogo");
+    estadoJogoRef.on("value", function(dados) {
+      estadoJogo = dados.val();
     });
   }
 
-  update(state) {
+  atualizar(estado) {
     database.ref("/").update({
-      gameState: state
+      estadoJogo: estado
     });
   }
 
-  start() {
-    player = new Player();
-    playerCount = player.getCount();
+  inicio() {
+    jogador = new Jogador();
+    numJogadores = jogador.lerNum();
 
     form = new Form();
-    form.display();
+    form.mostrar();
 
-    car1 = createSprite(width / 2 - 50, height - 100);
-    car1.addImage("car1", car1_img);
-    car1.scale = 0.07;
+    carro1 = createSprite(width / 2 - 50, height - 100);
+    carro1.addImage("car1", carro1_img);
+    carro1.scale = 0.07;
 
-    car2 = createSprite(width / 2 + 100, height - 100);
-    car2.addImage("car2", car2_img);
-    car2.scale = 0.07;
+    carro2 = createSprite(width / 2 + 100, height - 100);
+    carro2.addImage("car2", carro2_img);
+    carro2.scale = 0.07;
 
-    cars = [car1, car2];
+    carros = [carro1, carro2];
   }
 
-  handleElements() {
-    form.hide();
-    form.titleImg.position(40, 50);
-    form.titleImg.class("gameTitleAfterEffect");
+  mudarElementos() {
+    form.esconder();
+    form.tituloImg.position(40, 50);
+    form.tituloImg.class("tituloAposEfeito");
   }
 
-  play() {
-    this.handleElements();
+  jogar() {
+    this.mudarElementos();
 
-    Player.getPlayersInfo();
+    Jogador.lerInfoJogadores();
 
-    if (allPlayers !== undefined) {
-      image(track, 0, -height * 5, width, height * 6);
+    if (todosJogadores !== undefined) {
+      image(pista, 0, -height * 5, width, height * 6);
 
       drawSprites();
     }

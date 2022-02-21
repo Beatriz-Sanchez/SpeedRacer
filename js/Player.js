@@ -1,44 +1,44 @@
-class Player {
+class Jogador {
   constructor() {
-    this.name = null;
-    this.index = null;
-    this.positionX = 0;
-    this.positionY = 0;
+    this.nome = null;
+    this.indice = null;
+    this.posX = 0;
+    this.posY = 0;
   }
 
-  addPlayer() {
-    var playerIndex = "players/player" + this.index;
+  adicionarJogador() {
+    var indiceJogador = "jogadores/jogador" + this.indice;
 
-    if (this.index === 1) {
-      this.positionX = width / 2 - 100;
+    if (this.indice === 1) {
+      this.posX = width / 2 - 100;
     } else {
-      this.positionX = width / 2 + 100;
+      this.posX = width / 2 + 100;
     }
 
-    database.ref(playerIndex).set({
-      name: this.name,
-      positionX: this.positionX,
-      positionY: this.positionY
+    database.ref(indiceJogador).set({
+      nome: this.nome,
+      posX: this.posX,
+      posY: this.posY
     });
   }
 
-  getCount() {
-    var playerCountRef = database.ref("playerCount");
-    playerCountRef.on("value", data => {
-      playerCount = data.val();
+  lerNum() {
+    var NumJogadoresRef = database.ref("numJogadores");
+    NumJogadoresRef.on("value", dados => {
+      numJogadores = dados.val();
     });
   }
 
-  updateCount(count) {
+  atualizarNum(num) {
     database.ref("/").update({
-      playerCount: count
+      numJogadores: num
     });
   }
 
-  static getPlayersInfo() {
-    var playerInfoRef = database.ref("players");
-    playerInfoRef.on("value", data => {
-      allPlayers = data.val();
+  static lerInfoJogadores() {
+    var infoJogadoresRef = database.ref("jogadores");
+    infoJogadoresRef.on("value", dados => {
+      todosJogadores = dados.val();
     });
   }
 }
