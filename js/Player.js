@@ -34,4 +34,11 @@ class Player {
       playerCount: count
     });
   }
+
+  static getPlayersInfo() {
+    var playerInfoRef = database.ref("players");
+    playerInfoRef.on("value", data => {
+      allPlayers = data.val();
+    });
+  }
 }
