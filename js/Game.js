@@ -37,7 +37,7 @@ class Game {
     form.titleImg.position(40, 50);
     form.titleImg.class("gameTitleAfterEffect");
   }
-  //novo
+
   handlePlayerControls() {
     if (keyIsDown(UP_ARROW)) {
       player.positionY += 10;
@@ -47,24 +47,31 @@ class Game {
 
   play() {
     this.handleElements();
-
+  
     Player.getPlayersInfo();
 
     if (allPlayers !== undefined) {
       image(track, 0, -height * 5, width, height * 6);
 
-      drawSprites();
-
-      //novo
       var index = 0
       for (var plr in allPlayers) {
         index = index + 1;
         var x = allPlayers[plr].positionX;
-        var y = height-allPlayers[plr].positionY;
+        var y = height - allPlayers[plr].positionY;
 
         cars[index - 1].position.x = x;
         cars[index - 1].position.y = y;
+
+        if (index === player.index) {
+          stroke(10);
+          fill("red");
+          ellipse(x, y, 60, 60);
+
+          //camera.position.x = cars[index - 1].position.x;
+          camera.position.y = cars[index - 1].position.y;
+        }
       }
+      drawSprites();
 
       this.handlePlayerControls();
     }

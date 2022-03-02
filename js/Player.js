@@ -2,6 +2,7 @@ class Player {
   constructor() {
     this.name = null;
     this.index = null;
+
     this.positionX = 0;
     this.positionY = 0;
   }
@@ -18,7 +19,7 @@ class Player {
     database.ref(playerIndex).set({
       name: this.name,
       positionX: this.positionX,
-      positionY: this.positionY
+      positionY: this.positionY,
     });
   }
 
@@ -41,12 +42,21 @@ class Player {
       allPlayers = data.val();
     });
   }
-  //novo
-  update(){
+
+  update() {
     var playerIndex = 'players/player' + this.index;
     database.ref(playerIndex).update({
-        positionX: this.positionX,
-        positionY: this.positionY,
+      positionX: this.positionX,
+      positionY: this.positionY,
     });
-}
+  }
+
+  getDistance() {
+    var playerDistanceRef = databse.ref('players/player' + this.index);
+    playerDistanceRef.on("value", (data) => {
+      var data = data.val();
+      this.positionX = data.positionX;
+      this.positionY = data.positionY;
+    })
+  }
 }
