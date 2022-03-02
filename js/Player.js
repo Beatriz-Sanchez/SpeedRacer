@@ -5,9 +5,6 @@ class Jogador {
 
     this.posX = 0;
     this.posY = 0;
-
-    this.classificacao = 0;
-    this.pontos = 0;
   }
 
   adicionarJogador() {
@@ -23,8 +20,6 @@ class Jogador {
       nome: this.nome,
       posX: this.posX,
       posY: this.posY,
-      classificacao: this.classificacao,
-      pontos: this.pontos
     });
   }
 
@@ -53,8 +48,6 @@ class Jogador {
     database.ref(indiceJogador).update({
       posX: this.posX,
       posY: this.posY,
-      classificacao: this.classificacao,
-      pontos: this.pontos
     });
   }
 }
