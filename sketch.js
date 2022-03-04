@@ -1,8 +1,9 @@
 var canvas;
-var backgroundImage, bgImg, car1_img, car2_img, track;
+var backgroundImage, car1_img, car2_img, track;
+var fuelImage, powerCoinImage;
 var database, gameState;
 var form, player, playerCount;
-var allPlayers, car1, car2;
+var allPlayers, car1, car2, fuels, powerCoins, obstacles;
 var cars = [];
 
 function preload() {
@@ -10,6 +11,8 @@ function preload() {
   car1_img = loadImage("../assets/car1.png");
   car2_img = loadImage("../assets/car2.png");
   track = loadImage("../assets/pista.png");
+  fuelImage = loadImage("./assets/fuel.png");
+  powerCoinImage = loadImage("./assets/goldCoin.png");
 }
 
 function setup() {
