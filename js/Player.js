@@ -5,6 +5,7 @@ class Player {
     this.posX = 0;
     this.posY = 0;
     this.classificacao = 0;
+    this.combustivel = 185;
     this.pontos = 0;
   }
 
