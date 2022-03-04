@@ -1,23 +1,26 @@
 var canvas;
-var fundo, carro1_img, carro2_img, pista;
+var fundo, imgCarro1, imgCarro2, pista;
+var imgTanque, imgMoeda;
 var database, estadoJogo;
 var form, jogador, jogo, numJogadores;
-var todosJogadores, carro1, carro2;
+var todosJogadores, carro1, carro2, tanques, moedas, obstaculos;
 var carros = [];
 
 function preload() {
   fundo = loadImage("./assets/planodefundo.png");
-  carro1_img = loadImage("../assets/car1.png");
-  carro2_img = loadImage("../assets/car2.png");
+  imgCarro1 = loadImage("../assets/car1.png");
+  imgCarro2 = loadImage("../assets/car2.png");
   pista = loadImage("../assets/pista.png");
+  imgTanque = loadImage("./assets/fuel.png");
+  imgMoeda = loadImage("./assets/goldCoin.png");
 }
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   database = firebase.database();
-  jogo = new Jogo();
+  jogo = new Game();
   jogo.lerEstado();
-  jogo.inicio();
+  jogo.iniciar();
 }
 
 function draw() {
