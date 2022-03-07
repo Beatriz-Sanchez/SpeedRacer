@@ -6,27 +6,27 @@ class Form {
     this.mensagem = createElement("h2");
   }
 
-  posicionarElementos() {
+  setElementsPosition() {
     this.tituloImg.position(120, 50);
     this.entrada.position(width / 2 - 110, height / 2 - 80);
     this.botao.position(width / 2 - 90, height / 2 - 20);
     this.mensagem.position(width / 2 - 300, height / 2 - 100);
   }
 
-  estilizarElementos() {
+  setElementsStyle() {
     this.tituloImg.class("titulo");
     this.entrada.class("entrada");
     this.botao.class("botao");
     this.mensagem.class("mensagem");
   }
 
-  esconder() {
+  hide() {
     this.mensagem.hide();
     this.botao.hide();
     this.entrada.hide();
   }
 
-  botaoPressionado() {
+  handleMousePressed() {
     this.botao.mousePressed(() => {
       this.entrada.hide();
       this.botao.hide();
@@ -39,12 +39,13 @@ class Form {
       jogador.indice = numJogadores;
       jogador.adicionarJogador();
       jogador.atualizarNum(numJogadores);
+      jogador.lerDistancia();
     });
   }
 
-  mostrar() {
-    this.posicionarElementos();
-    this.estilizarElementos();
-    this.botaoPressionado();
+  disjogar() {
+    this.setElementsPosition();
+    this.setElementsStyle();
+    this.handleMousePressed();
   }
 }
