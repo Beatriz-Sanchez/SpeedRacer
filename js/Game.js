@@ -118,12 +118,10 @@ class Game {
     this.handleResetButton();
 
     Player.getPlayersInfo();
-    player.getCarsAtEnd();
 
     if (allPlayers !== undefined) {
       image(track, 0, -height * 5, width, height * 6);
 
-      this.showLife();
       this.showLeaderboard();
 
       var index = 0;
@@ -150,15 +148,6 @@ class Game {
 
       this.handlePlayerControls();
 
-      const finishLine = height * 6 - 100;
-      if (player.positionY > finishLine) {
-        gameState = 2;
-        player.rank += 1;
-        Player.updateCarsAtEnd(player.rank);
-        player.update();
-        this.showRank();
-      }
-
       drawSprites();
     }
   }
@@ -168,8 +157,7 @@ class Game {
       database.ref("/").set({
         playerCount: 0,
         gameState: 0,
-        players: {},
-        carsAtEnd: 0
+        players: {}
       });
       window.location.reload();
     });
@@ -259,16 +247,5 @@ class Game {
       player.update();
       collected.remove();
     });
-  }
-
-  showLife() {
-    push();
-    image(lifeImage, width / 2 - 130, height - player.positionY - 400, 20, 20);
-    fill("white");
-    rect(width / 2 - 100, height - player.positionY - 400, 185, 20);
-    fill("#f50057");
-    rect(width / 2 - 100, height - player.positionY - 400, player.life, 20);
-    noStroke();
-    pop();
   }
 }
