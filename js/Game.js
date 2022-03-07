@@ -223,7 +223,7 @@ class Jogo {
 
   mostrarClassificacao() {
     swal({
-        title: `Incrível!${"\n"}Rank${"\n"}${player.rank}`,
+        title: `Incrível!${"\n"}Rank${"\n"}${jogador.classificacao}`,
         text: "Você alcançou a linha de chegada com sucesso!",
         imageUrl:
         "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
