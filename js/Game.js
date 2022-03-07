@@ -1,4 +1,4 @@
-class Game {
+class Jogo {
   constructor() {
     this.tituloReiniciar = createElement("h2");
     this.botaoReiniciar = createButton("");
@@ -22,7 +22,7 @@ class Game {
   }
 
   iniciar() {
-    jogador = new Player();
+    jogador = new Jogador();
     numJogadores = jogador.lerNum();
 
     form = new Form();
@@ -105,7 +105,7 @@ class Game {
     this.mudarElementos();
     this.checarBotaoReiniciar();
 
-    Player.lerInfoJogadores();
+    Jogador.lerInfoJogadores();
 
     if (todosJogadores !== undefined) {
       image(pista, 0, -height * 5, width, height * 6);
