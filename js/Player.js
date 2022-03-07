@@ -7,6 +7,7 @@ class Jogador {
     this.classificacao = 0;
     this.combustivel = 185;
     this.pontos = 0;
+    this.vida = 185;
   }
 
   adicionarJogador() {
@@ -61,8 +62,20 @@ class Jogador {
 
   static lerInfoJogadores() {
     var refInfoJogadores = database.ref("jogadores");
-    refInfoJogadores.on("value", data => {
-      todosJogadores = data.val();
+    refInfoJogadores.on("value", dados => {
+      todosJogadores = dados.val();
+    });
+  }
+
+  lerCarrosNoFim() {
+    database.ref('carrosNoFim').on('value', (dados) => {
+      this.classificacao = dados.val();
+    });
+  }
+
+  static atualizarCarrosNoFim(num) {
+    database.ref("/").update({
+      carrosNoFim: num
     });
   }
 }

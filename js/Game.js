@@ -116,10 +116,12 @@ class Jogo {
     this.checarBotaoReiniciar();
 
     Jogador.lerInfoJogadores();
+    jogador.lerCarrosNoFim();
 
     if (todosJogadores !== undefined) {
       image(pista, 0, -height * 5, width, height * 6);
 
+      this.mostrarVida();
       this.mostrarTabela();
 
       //índice da matriz
@@ -151,6 +153,15 @@ class Jogo {
       //manipulando eventos de teclado
       this.controleJogador();
 
+      const chegada = height * 6 - 100;
+      if (jogador.posY > chegada) {
+        estadoJogo = 2;
+        jogador.classificacao += 1;
+        Jogador.atualizarCarrosNoFim(jogador.classificacao);
+        jogador.atualizar();
+        this.mostrarClassificacao();
+      }
+
       drawSprites();
     }
   }
@@ -160,7 +171,8 @@ class Jogo {
       database.ref("/").set({
         numJogadores: 0,
         estadoJogo: 0,
-        jogadores: {}
+        jogadores: {},
+        carrosNoFim: 0
       });
       window.location.reload();
     });
@@ -255,5 +267,16 @@ class Jogo {
       //o evento
       coletado.remove();
     });
+  }
+
+  mostrarVida() {
+    push();
+    image(imgVida, width / 2 - 130, height - jogador.posY - 400, 20, 20);
+    fill("white");
+    rect(width / 2 - 100, height - jogador.posY - 400, 185, 20);
+    fill("#f50057");
+    rect(width / 2 - 100, height - jogador.posY - 400, jogador.vida, 20);
+    noStroke();
+    pop();
   }
 }
