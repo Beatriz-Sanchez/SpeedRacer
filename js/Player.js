@@ -2,14 +2,13 @@ class Jogador {
   constructor() {
     this.nome = null;
     this.indice = null;
+
     this.posX = 0;
     this.posY = 0;
-    this.classificacao = 0;
-    this.pontos = 0;
   }
 
   adicionarJogador() {
-    var jogadorIndice = "jogadores/jogador" + this.indice;
+    var indiceJogador = "jogadores/jogador" + this.indice;
 
     if (this.indice === 1) {
       this.posX = width / 2 - 100;
@@ -17,27 +16,16 @@ class Jogador {
       this.posX = width / 2 + 100;
     }
 
-    database.ref(jogadorIndice).set({
+    database.ref(indiceJogador).set({
       nome: this.nome,
       posX: this.posX,
       posY: this.posY,
-      classificacao: this.classificacao,
-      pontos: this.pontos
-    });
-  }
-
-  lerDistancia() {
-    var refDistancia = database.ref("jogadores/jogador" + this.indice);
-    refDistancia.on("value", dados => {
-      var dados = dados.val();
-      this.posX = dados.posX;
-      this.posY = dados.posY;
     });
   }
 
   lerNum() {
-    var numJogadoresRef = database.ref("numJogadores");
-    numJogadoresRef.on("value", dados => {
+    var NumJogadoresRef = database.ref("numJogadores");
+    NumJogadoresRef.on("value", dados => {
       numJogadores = dados.val();
     });
   }
@@ -48,20 +36,18 @@ class Jogador {
     });
   }
 
-  atualizar() {
-    var jogadorIndex = "jogadores/jogador" + this.indice;
-    database.ref(jogadorIndex).update({
-      posX: this.posX,
-      posY: this.posY,
-      classificacao: this.classificacao,
-      pontos: this.pontos
+  static lerInfoJogadores() {
+    var infoJogadoresRef = database.ref("jogadores");
+    infoJogadoresRef.on("value", dados => {
+      todosJogadores = dados.val();
     });
   }
 
-  static lerInfoJogadores() {
-    var refInfoJogadores = database.ref("jogadores");
-    refInfoJogadores.on("value", data => {
-      todosJogadores = data.val();
+  atualizar() {
+    var indiceJogador = "jogadores/jogador" + this.indice;
+    database.ref(indiceJogador).update({
+      posX: this.posX,
+      posY: this.posY,
     });
   }
 }
