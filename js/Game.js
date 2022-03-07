@@ -41,6 +41,8 @@ class Jogo {
     tanques = new Group();
     moedas = new Group();
 
+    obstaculos = new Group();
+
     var posicoesObstaculos = [
       {x: width / 2 + 250, y: height - 800, image: imgObs2},
       {x: width / 2 - 150, y: height - 1300, image: imgObs1},
@@ -61,15 +63,23 @@ class Jogo {
 
     // Adicionar sprite de moeda no jogo
     this.adicionarSprites(moedas, 18, imgMoeda, 0.09);
+
+    //Adicionar sprite de obstáculo no jogo
+    this.adicionarSprites(obstaculos, posicoesObstaculos.length, imgObs1, 0.04, posicoesObstaculos);
   }
 
-  adicionarSprites(grupo, numSprites, imgSprite, scale) {
+  adicionarSprites(grupo, numSprites, imgSprite, scale, positions = []) {
     for (var i = 0; i < numSprites; i++) {
       var x, y;
 
-      x = random(width / 2 + 150, width / 2 - 150);
-      y = random(-height * 4.5, height - 400);
-
+      if (positions.length > 0) {
+        x = positions[i].x;
+        y = positions[i].y;
+        imgSprite = positions[i].image;
+      } else {
+        x = random(width / 2 + 150, width / 2 - 150);
+        y = random(-height * 4.5, height - 400);
+      }
       var sprite = createSprite(x, y);
       sprite.addImage("sprite", imgSprite);
 
@@ -112,10 +122,13 @@ class Jogo {
 
       this.mostrarTabela();
 
+      //índice da matriz
       var indice = 0;
       for (var plr in todosJogadores) {
+        //adicione 1 ao índice para cada loop
         indice = indice + 1;
 
+        //use os dados do banco de dados para exibir os carros nas direções x e y
         var x = todosJogadores[plr].posX;
         var y = height - todosJogadores[plr].posY;
 
@@ -127,10 +140,15 @@ class Jogo {
           fill("red");
           ellipse(x, y, 60, 60);
 
+          this.controlarCombustivel(indice);
+          this.controlarMoedas(indice);
+
+          //alterar a posição da câmera na direção y
           camera.position.y = carros[indice - 1].position.y;
         }
       }
 
+      //manipulando eventos de teclado
       this.controleJogador();
 
       drawSprites();
@@ -191,6 +209,17 @@ class Jogo {
     this.segundo.html(segundo);
   }
 
+  mostrarClassificacao() {
+    swal({
+        title: `Incrível!${"\n"}Rank${"\n"}${player.rank}`,
+        text: "Você alcançou a linha de chegada com sucesso!",
+        imageUrl:
+        "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
+        imageSize: "100x100",
+        confirmButtonText: "Ok"
+    });
+}
+
   controleJogador() {
     if (keyIsDown(UP_ARROW)) {
       jogador.posY += 10;
@@ -208,4 +237,23 @@ class Jogo {
     }
   }
 
+  controlarCombustivel(indice) {
+    //adicionando combustível
+    carros[indice - 1].overlap(tanques, function (coletor, coletado) {
+      jogador.combustivel = 185;
+      //o sprite é coletado no grupo de colecionáveis que desencadeou
+      //o evento
+      coletado.remove();
+    });
+  }
+
+  controlarMoedas(indice) {
+    carros[indice - 1].overlap(moedas, function (coletor, coletado) {
+      jogador.pontos += 21;
+      jogador.atualizar();
+      //o sprite é coletado no grupo de colecionáveis que desencadeou
+      //o evento
+      coletado.remove();
+    });
+  }
 }

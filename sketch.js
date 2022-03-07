@@ -1,6 +1,7 @@
 var canvas;
 var fundo, imgCarro1, imgCarro2, pista;
-var imgTanque, imgMoeda;
+var imgTanque, imgMoeda, imgVida;
+var imgObs1, imgObs2;
 var database, estadoJogo;
 var form, jogador, jogo, numJogadores;
 var todosJogadores, carro1, carro2, tanques, moedas, obstaculos;
@@ -13,6 +14,9 @@ function preload() {
   pista = loadImage("../assets/pista.png");
   imgTanque = loadImage("./assets/fuel.png");
   imgMoeda = loadImage("./assets/goldCoin.png");
+  imgObs1 = loadImage("./assets/obstacle1.png");
+  imgObs2 = loadImage("./assets/obstacle2.png");
+  imgVida = loadImage("./assets/life.png");
 }
 
 function setup() {
