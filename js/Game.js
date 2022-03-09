@@ -7,6 +7,8 @@ class Game {
 
     this.leader1 = createElement("h2");
     this.leader2 = createElement("h2");
+
+    this.playerMoving = false;
   }
 
   getState() {
@@ -124,6 +126,7 @@ class Game {
       image(track, 0, -height * 5, width, height * 6);
 
       this.showLife();
+      this.showFuelBar();
       this.showLeaderboard();
 
       var index = 0;
@@ -231,6 +234,7 @@ class Game {
 
   handlePlayerControls() {
     if (keyIsDown(UP_ARROW)) {
+      this.playerMoving = true;
       player.positionY += 10;
       player.update();
     }
@@ -251,6 +255,16 @@ class Game {
       player.fuel = 185;
       collected.remove();
     });
+
+    // reduzindo o combustível do carro
+    if (player.fuel > 0 && this.playerMoving) {
+      player.fuel -= 0.3;
+    }
+
+    if (player.fuel <= 0) {
+      gameState = 2;
+      this.gameOver();
+    }
   }
 
   handlePowerCoins(index) {
@@ -263,12 +277,35 @@ class Game {
 
   showLife() {
     push();
-    image(lifeImage, width / 2 - 130, height - player.positionY - 400, 20, 20);
+    image(lifeImage, width / 2 - 130, height - player.positionY - 300, 20, 20);
     fill("white");
-    rect(width / 2 - 100, height - player.positionY - 400, 185, 20);
+    rect(width / 2 - 100, height - player.positionY - 300, 185, 20);
     fill("#f50057");
-    rect(width / 2 - 100, height - player.positionY - 400, player.life, 20);
+    rect(width / 2 - 100, height - player.positionY - 300, player.life, 20);
     noStroke();
     pop();
   }
+
+  showFuelBar() {
+    push();
+    image(fuelImage, width / 2 - 130, height - player.positionY - 250, 20, 20);
+    fill("white");
+    rect(width / 2 - 100, height - player.positionY - 250, 185, 20);
+    fill("#ffc400");
+    rect(width / 2 - 100, height - player.positionY - 250, player.fuel, 20);
+    noStroke();
+    pop();
+  }
+
+  gameOver() {
+    swal({
+      title: `Fim de Jogo`,
+      text: "Oops você perdeu a corrida!",
+      imageUrl:
+        "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
+      imageSize: "100x100",
+      confirmButtonText: "Obrigado por jogar"
+    });
+  }
+    
 }
