@@ -9,6 +9,7 @@ class Jogo {
     this.segundo = createElement("h2");
 
     this.jogadorMovendo = false;
+    this.setaEsquerdaAtiva = false;
   }
 
   lerEstado() {
@@ -147,6 +148,7 @@ class Jogo {
 
           this.controlarCombustivel(indice);
           this.controlarMoedas(indice);
+          this.colisaoComObstaculos(indice);
 
           //alterar a posição da câmera na direção y
           camera.position.y = carros[indice - 1].position.y;
@@ -243,11 +245,13 @@ class Jogo {
     }
 
     if (keyIsDown(LEFT_ARROW) && jogador.posX > width / 3 - 50) {
+      this.setaEsquerdaAtiva = true;
       jogador.posX -= 5;
       jogador.atualizar();
     }
 
     if (keyIsDown(RIGHT_ARROW) && jogador.posX < width / 2 + 300) {
+      this.setaEsquerdaAtiva = false;
       jogador.posX += 5;
       jogador.atualizar();
     }
@@ -313,5 +317,22 @@ class Jogo {
       imageSize: "100x100",
       confirmButtonText: "Obrigado por jogar"
     });
+  }
+
+  colisaoComObstaculos(indice){
+    if(carros[indice-1].collide(obstaculos)){
+      
+      if (this.setaEsquerdaAtiva) {//novo
+        jogador.posX -= 100;
+      } else {
+        jogador.posX += 100;
+      }
+
+      if (jogador.vida > 0) {
+        jogador.vida -= 185/4;
+      }
+
+      jogador.atualizar();
+    }
   }
 }
