@@ -5,6 +5,7 @@ var database, estadoJogo;
 var form, jogador, jogo, numJogadores;
 var todosJogadores, carro1, carro2, tanques, moedas, obstaculos;
 var carros = [];
+var imgObs1, imgObs2;
 
 function preload() {
   fundo = loadImage("./assets/planodefundo.png");
@@ -13,6 +14,8 @@ function preload() {
   pista = loadImage("../assets/pista.png");
   imgTanque = loadImage("./assets/fuel.png");
   imgMoeda = loadImage("./assets/goldCoin.png");
+  imgObs1 = loadImage("./assets/obstacle1.png");
+  imgObs2 = loadImage("./assets/obstacle2.png");
 }
 
 function setup() {
