@@ -24,7 +24,8 @@ class Jogador {
       posX: this.posX,
       posY: this.posY,
       classificacao: this.classificacao,
-      pontos: this.pontos
+      pontos: this.pontos,
+      vida: this.vida
     });
   }
 
@@ -56,7 +57,8 @@ class Jogador {
       posX: this.posX,
       posY: this.posY,
       classificacao: this.classificacao,
-      pontos: this.pontos
+      pontos: this.pontos,
+      vida: this.vida
     });
   }
 
